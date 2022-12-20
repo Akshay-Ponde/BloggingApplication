@@ -2,6 +2,8 @@ package com.blogging.config;
 
 import com.blogging.security.EntryPointException;
 import com.blogging.security.JwtRequestFilter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true , prePostEnabled = true)
+@SecurityScheme(
+        name = "Bearer Authentication",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
+
 public class SecurityConfig {
 
     public static final String[] PUBLIC_URLS =
@@ -73,8 +82,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(PUBLIC_URLS)
                 .permitAll()
-                .requestMatchers("/api/users/")
-                .permitAll()
+              //  .requestMatchers("/api/users/")
+               // .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

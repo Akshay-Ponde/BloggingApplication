@@ -55,6 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/")
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<List<UserDto>> getAllUsers()
     {
         List<UserDto> users = this.userService.getAllUsers();
